@@ -1,0 +1,156 @@
+/* Existing CSS */
+#center {
+    margin: auto;
+    width: 95%;
+    height: 100%;
+    z-index: 10001;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    z-index: 1;
+  }
+
+  #right {
+    width: 49%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  #left {
+    text-align: center;
+    color: orange;
+    border: orange solid 2px;
+    padding: 2.5rem;
+    width: 49%;
+    border-radius: 15%;
+    background-color: #121212;
+    box-shadow: 0 0 5px rgba(255, 140, 0, 0.6),
+                 0 0 10px rgba(255, 140, 0, 0.5),
+                 0 0 15px rgba(255, 140, 0, 0.4);
+
+                 p{
+                    font-size: 1.2rem;
+                    font-family: "roboto";
+                    line-height: 125%;
+                    text-justify: distribute;
+                 }
+  }
+  
+  #center h1 {
+    font-family: "Orbitron";
+    font-size: 3rem;
+    text-shadow: 0 0 5px rgba(255, 140, 0, 0.6),
+                 0 0 10px rgba(255, 140, 0, 0.5),
+                 0 0 15px rgba(255, 140, 0, 0.4);
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    color: orange;
+  }
+  
+  /* New CSS for the orbiting planets */
+  .image-container {
+    position: relative;
+    display: inline-block; /* keeps the container to image size */
+    border-radius: 50%;
+    /* Removed overflow: hidden so planets outside the image are visible */
+    img{
+        border-radius: 50%;
+    }
+  }
+  
+  .image-container img {
+    display: block;
+  }
+  
+  /* Each orbit container rotates around the image center */
+  .orbit {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-origin: center center;
+    animation: orbit-rotate linear infinite;
+  }
+  
+  /* Faster spin with varied durations and delays for different start positions */
+  .orbit1 {
+    animation-duration: 10s;
+    animation-delay: -1s;
+  }
+  .orbit2 {
+    animation-duration: 11.5s;
+    animation-delay: -1.5s;
+  }
+  .orbit3 {
+    animation-duration: 13s;
+    animation-delay: -2s;
+  }
+  .orbit4 {
+    animation-duration: 10.5s;
+    animation-delay: -2.5s;
+  }
+  .orbit5 {
+    animation-duration: 14s;
+    animation-delay: -3s;
+  }
+  .orbit6 {
+    animation-duration: 16.5s;
+    animation-delay: -3.5s;
+  }
+  
+  /* Style for each planet (orange and different sizes) */
+  .orbit .planet {
+    position: absolute;
+    border-radius: 50%;
+    background-color: orange;
+  }
+  
+  /* Offset each planet from the center so they orbit outside the image */
+  .orbit1 .planet {
+    width: 25px;
+    height: 25px;
+    transform: translate(-50%, -220px);
+  }
+  
+  .orbit2 .planet {
+    width: 30px;
+    height: 30px;
+    transform: translate(-50%, -250px);
+  }
+  
+  .orbit3 .planet {
+    width: 20px;
+    height: 20px;
+    transform: translate(-50%, -280px);
+  }
+  
+  .orbit4 .planet {
+    width: 35px;
+    height: 35px;
+    transform: translate(-50%, -310px);
+  }
+  
+  .orbit5 .planet {
+    width: 15px;
+    height: 15px;
+    transform: translate(-50%, -340px);
+  }
+  
+  .orbit6 .planet {
+    width: 40px;
+    height: 40px;
+    transform: translate(-50%, -370px);
+  }
+  
+  /* Keyframes to rotate the orbit containers */
+  @keyframes orbit-rotate {
+    from {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+  }
+  

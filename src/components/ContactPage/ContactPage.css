@@ -1,0 +1,55 @@
+#pgs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    background-color: #121212;
+    font-family: 'roboto';
+    color: orange;
+    position: relative;
+  }
+  
+  #contact-container {
+    z-index: 3000;
+    text-align: center;
+    width: 500px;
+    padding: 2rem;
+    background: rgba(18, 18, 18, 0.8);
+    border: 2px solid orange;
+    border-radius: 1rem;
+  }
+  
+  #contact-container h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    font-family: 'Orbitron';
+    text-shadow: 0 0 5px rgba(255,140,0,0.6), 0 0 10px rgba(255,140,0,0.5);
+  }
+  
+  #contact-container p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    font-family: 'Orbitron';
+    text-shadow: 0 0 5px rgba(255,140,0,0.6), 0 0 10px rgba(255,140,0,0.5);
+  }
+  
+  #contact-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+  }
+  
+  #contact-icons a {
+    color: orange;
+    font-size: 4rem;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  #contact-icons a:hover {
+    padding: 0.5rem;
+    font-size: 4.5rem;
+    border-radius: 50%;
+  }
