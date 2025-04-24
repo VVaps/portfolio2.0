@@ -2,7 +2,7 @@ import React from "react";
 import "./AboutMePage.css";
 
 const AboutMePage = () => {
-  const pfp = require("../../assets/img/1718271076860.jpeg");
+  const pfp = require("../../assets/img/1718271076860-removebg-preview.png");
 
   const generateStars = () => {
     return Array.from({ length: 75 }).map((_, i) => {
