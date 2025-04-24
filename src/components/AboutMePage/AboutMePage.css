@@ -1,156 +1,164 @@
-/* Existing CSS */
+#pg {
+  position: relative;
+  min-height: 100vh;
+  padding: 1rem 1rem; /* Reduced top padding */
+  overflow: hidden;
+}
+
 #center {
-    margin: auto;
-    width: 95%;
-    height: 100%;
-    z-index: 10001;
-    display: flex;
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 6rem; /* Reduced from 8rem */
+  z-index: 1;
+}
+
+#content-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  margin-top: 2rem; /* Reduced from 3rem */
+}
+
+#left {
+  flex: 1 1 45%;
+  min-width: 300px;
+  padding: 1.5rem;
+  color: orange;
+  border: 2px solid orange;
+  border-radius: 15px;
+  background-color: #121212;
+  box-shadow: 0 0 5px rgba(255, 140, 0, 0.6),
+              0 0 10px rgba(255, 140, 0, 0.5),
+              0 0 15px rgba(255, 140, 0, 0.4);
+}
+
+#left p {
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  font-family: 'Roboto', sans-serif;
+  line-height: 1.6;
+  text-align: justify;
+}
+
+#right {
+  flex: 1 1 45%;
+  min-width: 300px;
+  display: grid;
+  place-items: center;
+}
+
+.image-container {
+  position: relative;
+  width: clamp(250px, 30vw, 400px);
+  aspect-ratio: 1/1;
+}
+
+#pfp {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+#pfp img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.orbit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: center center;
+  animation: orbit-rotate linear infinite;
+}
+
+.planet {
+  position: absolute;
+  border-radius: 50%;
+  background-color: orange;
+  transform: translate(-50%, -50%);
+}
+
+/* Orbit distances */
+.orbit1 .planet { width: 15px; height: 15px; transform: translate(-50%, -22vh) }
+.orbit2 .planet { width: 18px; height: 18px; transform: translate(-50%, -25vh) }
+.orbit3 .planet { width: 12px; height: 12px; transform: translate(-50%, -28vh) }
+.orbit4 .planet { width: 20px; height: 20px; transform: translate(-50%, -31vh) }
+.orbit5 .planet { width: 10px; height: 10px; transform: translate(-50%, -34vh) }
+.orbit6 .planet { width: 22px; height: 22px; transform: translate(-50%, -37vh) }
+
+/* Animation durations */
+.orbit1 { animation-duration: 10s }
+.orbit2 { animation-duration: 11.5s }
+.orbit3 { animation-duration: 13s }
+.orbit4 { animation-duration: 10.5s }
+.orbit5 { animation-duration: 14s }
+.orbit6 { animation-duration: 16.5s }
+
+h1 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  text-align: center;
+  color: orange;
+  text-shadow: 0 0 5px rgba(255, 140, 0, 0.6),
+               0 0 10px rgba(255, 140, 0, 0.5),
+               0 0 15px rgba(255, 140, 0, 0.4);
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  margin: 0;
+  padding: 0.5rem 0;
+}
+
+@media (max-width: 768px) {
+  #content-wrapper {
+    flex-direction: column;
     align-items: center;
-    justify-content: space-evenly;
-    z-index: 1;
   }
 
-  #right {
-    width: 49%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  #left, #right {
+    width: 100%;
+    max-width: 500px;
   }
-  
-  #left {
-    text-align: center;
-    color: orange;
-    border: orange solid 2px;
-    padding: 2.5rem;
-    width: 49%;
-    border-radius: 15%;
-    background-color: #121212;
-    box-shadow: 0 0 5px rgba(255, 140, 0, 0.6),
-                 0 0 10px rgba(255, 140, 0, 0.5),
-                 0 0 15px rgba(255, 140, 0, 0.4);
 
-                 p{
-                    font-size: 1.2rem;
-                    font-family: "roboto";
-                    line-height: 125%;
-                    text-justify: distribute;
-                 }
+  .orbit1 .planet { transform: translate(-50%, -20vw) }
+  .orbit2 .planet { transform: translate(-50%, -23vw) }
+  .orbit3 .planet { transform: translate(-50%, -26vw) }
+  .orbit4 .planet { transform: translate(-50%, -29vw) }
+  .orbit5 .planet { transform: translate(-50%, -32vw) }
+  .orbit6 .planet { transform: translate(-50%, -35vw) }
+}
+
+@media (max-width: 480px) {
+  #center {
+    padding-top: 2rem; /* Reduced from 3rem */
   }
-  
-  #center h1 {
-    font-family: "Orbitron";
-    font-size: 3rem;
-    text-shadow: 0 0 5px rgba(255, 140, 0, 0.6),
-                 0 0 10px rgba(255, 140, 0, 0.5),
-                 0 0 15px rgba(255, 140, 0, 0.4);
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    color: orange;
+
+  h1 {
+    font-size: 1.8rem;
+    top: 0; /* Changed from 0.5rem */
   }
-  
-  /* New CSS for the orbiting planets */
+
+  #left p {
+    font-size: 1rem;
+  }
+
   .image-container {
-    position: relative;
-    display: inline-block; /* keeps the container to image size */
-    border-radius: 50%;
-    /* Removed overflow: hidden so planets outside the image are visible */
-    img{
-        border-radius: 50%;
-    }
+    width: 70vw;
   }
-  
-  .image-container img {
-    display: block;
+
+  .planet {
+    width: 70% !important;
+    height: 70% !important;
   }
-  
-  /* Each orbit container rotates around the image center */
-  .orbit {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform-origin: center center;
-    animation: orbit-rotate linear infinite;
-  }
-  
-  /* Faster spin with varied durations and delays for different start positions */
-  .orbit1 {
-    animation-duration: 10s;
-    animation-delay: -1s;
-  }
-  .orbit2 {
-    animation-duration: 11.5s;
-    animation-delay: -1.5s;
-  }
-  .orbit3 {
-    animation-duration: 13s;
-    animation-delay: -2s;
-  }
-  .orbit4 {
-    animation-duration: 10.5s;
-    animation-delay: -2.5s;
-  }
-  .orbit5 {
-    animation-duration: 14s;
-    animation-delay: -3s;
-  }
-  .orbit6 {
-    animation-duration: 16.5s;
-    animation-delay: -3.5s;
-  }
-  
-  /* Style for each planet (orange and different sizes) */
-  .orbit .planet {
-    position: absolute;
-    border-radius: 50%;
-    background-color: orange;
-  }
-  
-  /* Offset each planet from the center so they orbit outside the image */
-  .orbit1 .planet {
-    width: 25px;
-    height: 25px;
-    transform: translate(-50%, -220px);
-  }
-  
-  .orbit2 .planet {
-    width: 30px;
-    height: 30px;
-    transform: translate(-50%, -250px);
-  }
-  
-  .orbit3 .planet {
-    width: 20px;
-    height: 20px;
-    transform: translate(-50%, -280px);
-  }
-  
-  .orbit4 .planet {
-    width: 35px;
-    height: 35px;
-    transform: translate(-50%, -310px);
-  }
-  
-  .orbit5 .planet {
-    width: 15px;
-    height: 15px;
-    transform: translate(-50%, -340px);
-  }
-  
-  .orbit6 .planet {
-    width: 40px;
-    height: 40px;
-    transform: translate(-50%, -370px);
-  }
-  
-  /* Keyframes to rotate the orbit containers */
-  @keyframes orbit-rotate {
-    from {
-      transform: translate(-50%, -50%) rotate(0deg);
-    }
-    to {
-      transform: translate(-50%, -50%) rotate(360deg);
-    }
-  }
-  
+}
+
+@keyframes orbit-rotate {
+  from { transform: translate(-50%, -50%) rotate(0deg) }
+  to { transform: translate(-50%, -50%) rotate(360deg) }
+}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import {
   Drawer,
   List,
@@ -7,6 +7,8 @@ import {
   ListItemIcon,
   ListItemText,
   IconButton,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import {
   Home as HomeIcon,
@@ -17,90 +19,114 @@ import {
   ArrowBack,
 } from "@mui/icons-material";
 import { motion } from "framer-motion";
-
-// Import the pages (components) for each section
 import HomePage from "../HomePage/HomePage";
 import ProjectsPage from "../ProjectsPage/ProjectsPage";
 import AboutMePage from "../AboutMePage/AboutMePage";
 import ContactPage from "../ContactPage/ContactPage";
 
-// Define menu items with keys (no stored elements)
 const menuItems = [
-  { key: "home",     text: "Home",     icon: <HomeIcon sx={{ color: "orange" }} /> },
-  { key: "projects", text: "Projects", icon: <WorkIcon sx={{ color: "orange" }} /> },
-  { key: "aboutme",  text: "About Me", icon: <InfoIcon sx={{ color: "orange" }} /> }, // Update key to "aboutme"
-  { key: "contact",  text: "Contact",  icon: <ContactIcon sx={{ color: "orange" }} /> },
+  { key: "home", text: "Home", icon: <HomeIcon /> },
+  { key: "projects", text: "Projects", icon: <WorkIcon /> },
+  { key: "aboutme", text: "About Me", icon: <InfoIcon /> },
+  { key: "contact", text: "Contact", icon: <ContactIcon /> },
 ];
 
-// Framer Motion variants for transitions
 const pageVariants = {
-  hidden:  { opacity: 0, x: 100 },
-  visible: { opacity: 1, x:   0 },
-  exit:    { opacity: 0, x: -100 },
+  hidden: { opacity: 0, x: 100 },
+  visible: { opacity: 1, x: 0 },
+  exit: { opacity: 0, x: -100 },
+};
+
+const mobilePageVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -20 },
 };
 
 const SideBar = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [isOpen, setIsOpen] = useState(false);
   const [activeKey, setActiveKey] = useState("home");
 
-  // Change page by key
   const handlePageChange = (key) => {
     setActiveKey(key);
     setIsOpen(false);
   };
 
-  // Render the selected component
-  const renderPage = () => {
+  const renderPage = useMemo(() => {
     switch (activeKey) {
-      case "home":
-        return <HomePage onNavigate={handlePageChange} />; // Pass callback
-      case "projects":
-        return <ProjectsPage />;
-      case "aboutme": // Ensure this matches the key used in HomePage
-        return <AboutMePage />;
-      case "contact":
-        return <ContactPage />;
-      default:
-        return <HomePage onNavigate={handlePageChange} />;
+      case "home": return <HomePage onNavigate={handlePageChange} />;
+      case "projects": return <ProjectsPage />;
+      case "aboutme": return <AboutMePage />;
+      case "contact": return <ContactPage />;
+      default: return <HomePage onNavigate={handlePageChange} />;
     }
-  };
+  }, [activeKey]);
+
+  const buttonStyles = useMemo(() => ({
+    position: 'fixed',
+    top: '50%',
+    left: isOpen ? (isMobile ? 'calc(100% - 40px)' : 240) : 20,
+    transform: 'translateY(-50%)',
+    zIndex: 4000,
+    bgcolor: '#121212',
+    color: 'orange',
+    border: '1px solid orange',
+    transition: 'left 0.3s ease',
+    '&:hover': { bgcolor: 'orange', color: '#121212' },
+    ...(isMobile && {
+      padding: '12px',
+      left: isOpen ? 'calc(100% - 48px)' : '16px'
+    })
+  }), [isOpen, isMobile]);
+
+  const drawerStyles = useMemo(() => ({
+    width: isMobile ? '100%' : 300,
+    maxWidth: '100%',
+    flexShrink: 0,
+    '& .MuiDrawer-paper': {
+      width: isMobile ? '100%' : 300,
+      bgcolor: '#121212',
+      paddingTop: isMobile ? '4rem' : '5rem',
+      boxSizing: 'border-box'
+    }
+  }), [isMobile]);
 
   return (
-    <>  {/* Fragment to wrap drawer & content */}
-      {/* Toggle button */}
+    <>
       <IconButton
+        aria-label="toggle navigation"
         onClick={() => setIsOpen(o => !o)}
-        sx={{
-          position: "absolute",
-          top: "50%",
-          left: isOpen ? 240 : 20,
-          transform: "translate(-50%, -50%)",
-          zIndex: 4000,
-          bgcolor: "#121212",
-          color: "orange",
-          border: "1px solid orange",
-          transition: "left 0.3s ease",
-          '&:hover': { bgcolor: 'orange', color: '#121212' },
-        }}
+        sx={buttonStyles}
       >
         {isOpen ? <ArrowBack /> : <ArrowForward />}
       </IconButton>
 
-      {/* Sidebar drawer */}
       <Drawer
-        variant="persistent"
+        variant="temporary"
         open={isOpen}
         onClose={() => setIsOpen(false)}
-        PaperProps={{ sx: { bgcolor: '#121212', width: 300, pt: '5rem', zIndex: 1301 } }}
+        ModalProps={{ keepMounted: true }}
+        sx={drawerStyles}
       >
         <List>
           {menuItems.map(item => (
             <ListItem key={item.key} disablePadding>
-              <ListItemButton onClick={() => handlePageChange(item.key)}>
-                <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemButton 
+                onClick={() => handlePageChange(item.key)}
+                sx={{ py: 2 }}
+              >
+                <ListItemIcon sx={{ color: 'orange', minWidth: '40px' }}>
+                  {React.cloneElement(item.icon, { fontSize: isMobile ? 'medium' : 'large' })}
+                </ListItemIcon>
                 <ListItemText
                   primary={item.text}
-                  primaryTypographyProps={{ fontSize: '1.5rem', color: 'orange' }}
+                  primaryTypographyProps={{
+                    fontSize: isMobile ? '1.2rem' : '1.5rem',
+                    color: 'orange',
+                    fontFamily: 'Orbitron, sans-serif'
+                  }}
                 />
               </ListItemButton>
             </ListItem>
@@ -108,17 +134,22 @@ const SideBar = () => {
         </List>
       </Drawer>
 
-      {/* Main content with no extra padding/margin */}
       <motion.div
         key={activeKey}
         initial="hidden"
         animate="visible"
         exit="exit"
-        variants={pageVariants}
-        transition={{ duration: 0.5 }}
-        style={{ margin: 0, padding: 0, minHeight: '100vh' }}
+        variants={isMobile ? mobilePageVariants : pageVariants}
+        transition={{ duration: 0.3 }}
+        style={{ 
+          margin: 0,
+          padding: 0,
+          minHeight: '100vh',
+          overflowX: 'hidden',
+          width: '100%'
+        }}
       >
-        {renderPage()}
+        {renderPage}
       </motion.div>
     </>
   );

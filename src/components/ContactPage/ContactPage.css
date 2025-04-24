@@ -2,54 +2,109 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    height: 100vh;
-    width: 100vw;
+    min-height: 100vh;
+    padding: 2rem;
     background-color: #121212;
-    font-family: 'roboto';
+    font-family: 'Roboto', sans-serif;
     color: orange;
     position: relative;
-  }
+    overflow: hidden;
+    width: 100%;
+}
   
-  #contact-container {
-    z-index: 3000;
+#contact-container {
+    z-index: 0;
     text-align: center;
-    width: 500px;
-    padding: 2rem;
-    background: rgba(18, 18, 18, 0.8);
+    width: 90%;
+    max-width: 500px;
+    padding: 2.5rem 2rem; /* Increased vertical padding */
+    background: rgba(18, 18, 18, 0.9);
     border: 2px solid orange;
     border-radius: 1rem;
-  }
+    backdrop-filter: blur(5px);
+}
   
-  #contact-container h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    font-family: 'Orbitron';
+#contact-container h1 {
+    font-size: clamp(2rem, 5vw, 2.5rem);
+    margin: 0 0 1.5rem 0; /* Added bottom margin */
+    font-family: 'Orbitron', sans-serif;
     text-shadow: 0 0 5px rgba(255,140,0,0.6), 0 0 10px rgba(255,140,0,0.5);
-  }
+}
   
-  #contact-container p {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
-    font-family: 'Orbitron';
+#contact-container p {
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    margin: 2rem 0;
+    font-family: 'Orbitron', sans-serif;
     text-shadow: 0 0 5px rgba(255,140,0,0.6), 0 0 10px rgba(255,140,0,0.5);
-  }
+}
   
-  #contact-icons {
+#contact-icons {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    gap: 3rem;
-  }
+    gap: clamp(1.5rem, 5vw, 3rem);
+}
   
-  #contact-icons a {
+#contact-icons a {
     color: orange;
-    font-size: 4rem;
+    font-size: clamp(3rem, 8vw, 4rem);
     transition: all 0.3s ease-in-out;
-  }
-  
-  #contact-icons a:hover {
     padding: 0.5rem;
-    font-size: 4.5rem;
     border-radius: 50%;
-  }
+    display: grid;
+    place-items: center;
+}
+
+#contact-icons a:hover {
+    transform: scale(1.15);
+    background: rgba(255, 165, 0, 0.1);
+    box-shadow: 0 0 15px rgba(255,140,0,0.4);
+}
+
+@media (max-width: 768px) {
+    #pgs {
+        padding: 1rem;
+    }
+    
+    #contact-container {
+        padding: 1.5rem;
+    }
+    
+    #contact-icons a {
+        font-size: 3rem;
+        padding: 0.3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    #contact-icons {
+        gap: 1rem;
+    }
+    
+    #contact-icons a {
+        font-size: 2.5rem;
+    }
+}
+
+/* Stars animation (same as other pages) */
+.stars {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.star {
+    position: absolute;
+    background-color: orange;
+    border-radius: 50%;
+    animation: shine 2s infinite ease-in-out;
+    opacity: 0.8;
+}
+
+@keyframes shine {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.5); opacity: 1; }
+}

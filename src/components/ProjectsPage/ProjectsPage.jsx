@@ -20,7 +20,14 @@ const CustomNextArrow = ({ onClick }) => (
       top: "50%",
       transform: "translateY(-50%)",
       right: "-4rem",
-      zIndex: "10"
+      zIndex: "10",
+      right: "-4rem",
+      '@media (max-width: 1024px)': {
+        right: "-2rem"
+      },
+      '@media (max-width: 768px)': {
+        right: "-1rem"
+      }
     }}
   >
     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -45,7 +52,14 @@ const CustomPrevArrow = ({ onClick }) => (
       top: "50%",
       transform: "translateY(-50%)",
       left: "-4rem",
-      zIndex: "10"
+      zIndex: "10",
+      left: "-4rem",
+      '@media (max-width: 1024px)': {
+        left: "-2rem"
+      },
+      '@media (max-width: 768px)': {
+        left: "-1rem"
+      }
     }}
   >
     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -114,20 +128,42 @@ const ProjectsPage = () => {
 
   const styles = {
     heading: {
-      marginTop: 0,
+      position: 'absolute',
+      top: '20px',
+      left: '50%',
+      transform: 'translateX(-50%)',
+      width: '100%',
       textAlign: 'center',
       fontFamily: 'Orbitron',
       color: 'orange',
-      fontSize: '5rem',
-      textShadow: '0 0 5px rgba(255, 140, 0, 0.6), 0 0 10px rgba(255, 140, 0, 0.5), 0 0 15px rgba(255, 140, 0, 0.4)'
+      fontSize: '4rem',
+      textShadow: '0 0 5px rgba(255, 140, 0, 0.6), 0 0 10px rgba(255, 140, 0, 0.5), 0 0 15px rgba(255, 140, 0, 0.4)',
+      zIndex: 2,
+      '@media (max-width: 768px)': {
+        fontSize: '3rem',
+        top: '15px'
+      },
+      '@media (max-width: 480px)': {
+        fontSize: '2.5rem',
+        top: '10px'
+      }
     },
     subheading: {
-      marginTop: 0,
+      marginTop: '60px', // Added space for heading
       textAlign: 'center',
       fontFamily: 'Orbitron',
       color: 'orange',
       fontSize: '1.2rem',
-      textShadow: '0 0 5px rgba(255, 140, 0, 0.6), 0 0 10px rgba(255, 140, 0, 0.5), 0 0 15px rgba(255, 140, 0, 0.4)'
+      textShadow: '0 0 5px rgba(255, 140, 0, 0.6), 0 0 10px rgba(255, 140, 0, 0.5), 0 0 15px rgba(255, 140, 0, 0.4)',
+      padding: '0 20px',
+      '@media (max-width: 768px)': {
+        fontSize: '1rem',
+        marginTop: '50px'
+      },
+      '@media (max-width: 480px)': {
+        fontSize: '0.9rem',
+        marginTop: '40px'
+      }
     },
     slideTitle: {
       textAlign: 'center',
@@ -135,7 +171,13 @@ const ProjectsPage = () => {
       color: 'orange',
       fontSize: '2rem',
       textShadow: '0 0 5px rgba(255, 140, 0, 0.6), 0 0 10px rgba(255, 140, 0, 0.5), 0 0 15px rgba(255, 140, 0, 0.4)',
-      marginBottom: '1rem'
+      marginBottom: '1rem',
+      '@media (max-width: 768px)': {
+        fontSize: '1.5rem'
+      },
+      '@media (max-width: 480px)': {
+        fontSize: '1.2rem'
+      }
     }
   };
 
@@ -190,9 +232,6 @@ const ProjectsPage = () => {
       ),
       image: "https://www.bew-web-agency.fr/wp-content/uploads/2024/02/GitHub.jpg",
     },
-    
-
-    // Add more slides as needed
   ];
 
   return (
@@ -202,9 +241,17 @@ const ProjectsPage = () => {
           <div key={i} className="star"></div>
         ))}
       </div>
-
-      <div className="relative mx-auto" style={{ width: "60%", position: "relative" }}>
-        <h1 style={styles.heading}>Projects</h1>
+      <h1 style={styles.heading}>Projects</h1>
+      <div className="relative mx-auto" style={{
+        width: "60%",
+        position: "relative",
+        '@media (max-width: 768px)': {
+          width: "80%"
+        },
+        '@media (max-width: 480px)': {
+          width: "90%"
+        }
+      }}>
         <p style={styles.subheading}>Here are some of my projects. Click on the images to learn more.</p>
         <Slider {...settings}>
           {carouselData.map((item) => (
