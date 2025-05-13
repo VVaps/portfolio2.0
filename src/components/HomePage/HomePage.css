@@ -5,7 +5,6 @@
     flex-direction: column;
     min-height: 100vh;
     width: 100%;
-    padding: 2rem;
     background-color: #121212;
     font-family: 'Roboto', sans-serif;
     overflow-x: hidden;
@@ -22,7 +21,7 @@
     width: 90%;
     max-width: 750px;
     padding: 1rem;
-    z-index: 3000;
+    z-index: 1000;
 }
 
 #title h1 {
@@ -35,6 +34,7 @@
 #title p {
     font-size: clamp(1rem, 2.5vw, 1.5rem);
     font-family: 'Orbitron', sans-serif;
+    margin-top: 1rem;
 }
 
 #buttons {
@@ -43,7 +43,7 @@
     justify-content: center;
     gap: 1rem;
     padding: 1rem;
-    z-index: 3000;
+    z-index: 1000;
     max-width: 1200px;
 }
 
@@ -102,16 +102,20 @@
 @media (max-width: 768px) {
     #buttons {
         flex-direction: column;
-        width: 100%;
+        width: 90%;
     }
     
     #buttons div {
         max-width: none;
         margin: 0.5rem;
+        width: 85%;
     }
     
     #title {
         width: 95%;
+        p{
+            margin-top: 3.5rem;
+        }
     }
 }
 

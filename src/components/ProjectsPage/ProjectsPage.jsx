@@ -1,198 +1,63 @@
+// ProjectsPage.jsx
 import React, { useState } from "react";
 import Slider from "react-slick";
 import "./ProjectsPage.css";
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
-const CustomNextArrow = ({ onClick }) => (
+const CustomArrow = ({ onClick, isNext }) => (
   <div
     onClick={onClick}
-    className=" right-2 top-1/2 transform -translate-y-1/2 z-10 cursor-pointer bg-gray-800 text-orange-500 hover:bg-gray-700 p-1 rounded-full"
-    style={{
-      width: "30px",
-      height: "30px",
-      display: "block",
-      color: "orange",
-      borderRadius: "50%",
-      border: "1px solid orange",
-      padding: "5px",
-      position: "absolute",
-      top: "50%",
-      transform: "translateY(-50%)",
-      right: "-4rem",
-      zIndex: "10",
-      right: "-4rem",
-      '@media (max-width: 1024px)': {
-        right: "-2rem"
-      },
-      '@media (max-width: 768px)': {
-        right: "-1rem"
-      }
-    }}
+    className={`custom-arrow ${isNext ? "next-arrow" : "prev-arrow"}`}
   >
     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+      {isNext ? (
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+      ) : (
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+      )}
     </svg>
   </div>
 );
 
-const CustomPrevArrow = ({ onClick }) => (
-  <div
-    onClick={onClick}
-    className=" left-2 top-1/2 transform -translate-y-1/2 z-10 cursor-pointer bg-gray-800 text-orange-500 hover:bg-gray-700 p-1 rounded-full"
-    style={{
-      width: "30px",
-      height: "30px",
-      display: "block",
-      color: "orange",
-      borderRadius: "50%",
-      border: "1px solid orange",
-      padding: "5px",
-      position: "absolute",
-      top: "50%",
-      transform: "translateY(-50%)",
-      left: "-4rem",
-      zIndex: "10",
-      left: "-4rem",
-      '@media (max-width: 1024px)': {
-        left: "-2rem"
-      },
-      '@media (max-width: 768px)': {
-        left: "-1rem"
-      }
-    }}
-  >
-    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-    </svg>
-  </div>
-);
-
-// Simplified FlipCard: fills its parent
 const FlipCard = ({ front, back }) => {
   const [flipped, setFlipped] = useState(false);
-
   return (
-    <div
-      onClick={() => setFlipped(!flipped)}
-      style={{
-        perspective: "1000px",
-        cursor: "pointer",
-        width: "100%",
-        height: "100%"
-      }}
-    >
-      <div
-        style={{
-          position: "relative",
-          width: "100%",
-          height: "100%",
-          transition: "transform 0.6s",
-          transformStyle: "preserve-3d",
-          transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)"
-        }}
-      >
-        <div
-          style={{
-            position: "absolute",
-            width: "100%",
-            height: "100%",
-            backfaceVisibility: "hidden"
-          }}
-        >
-          {front}
-        </div>
-        <div
-          style={{
-            position: "absolute",
-            width: "100%",
-            height: "100%",
-            backfaceVisibility: "hidden",
-            transform: "rotateY(180deg)",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            padding: "1rem",
-            backgroundColor: "#121212",
-            color: "orange"
-          }}
-        >
-          {back}
-        </div>
+    <div className="flip-card" onClick={() => setFlipped(!flipped)}>
+      <div className={`flip-card-inner ${flipped ? "flipped" : ""}`}>
+        <div className="flip-card-front">{front}</div>
+        <div className="flip-card-back">{back}</div>
       </div>
     </div>
   );
 };
 
-const ProjectsPage = () => {
+export default function ProjectsPage() {
 
-  const styles = {
-    heading: {
-      position: 'absolute',
-      top: '20px',
-      left: '50%',
-      transform: 'translateX(-50%)',
-      width: '100%',
-      textAlign: 'center',
-      fontFamily: 'Orbitron',
-      color: 'orange',
-      fontSize: '4rem',
-      textShadow: '0 0 5px rgba(255, 140, 0, 0.6), 0 0 10px rgba(255, 140, 0, 0.5), 0 0 15px rgba(255, 140, 0, 0.4)',
-      zIndex: 2,
-      '@media (max-width: 768px)': {
-        fontSize: '3rem',
-        top: '15px'
-      },
-      '@media (max-width: 480px)': {
-        fontSize: '2.5rem',
-        top: '10px'
-      }
-    },
-    subheading: {
-      marginTop: '60px', // Added space for heading
-      textAlign: 'center',
-      fontFamily: 'Orbitron',
-      color: 'orange',
-      fontSize: '1.2rem',
-      textShadow: '0 0 5px rgba(255, 140, 0, 0.6), 0 0 10px rgba(255, 140, 0, 0.5), 0 0 15px rgba(255, 140, 0, 0.4)',
-      padding: '0 20px',
-      '@media (max-width: 768px)': {
-        fontSize: '1rem',
-        marginTop: '50px'
-      },
-      '@media (max-width: 480px)': {
-        fontSize: '0.9rem',
-        marginTop: '40px'
-      }
-    },
-    slideTitle: {
-      textAlign: 'center',
-      fontFamily: 'Orbitron',
-      color: 'orange',
-      fontSize: '2rem',
-      textShadow: '0 0 5px rgba(255, 140, 0, 0.6), 0 0 10px rgba(255, 140, 0, 0.5), 0 0 15px rgba(255, 140, 0, 0.4)',
-      marginBottom: '1rem',
-      '@media (max-width: 768px)': {
-        fontSize: '1.5rem'
-      },
-      '@media (max-width: 480px)': {
-        fontSize: '1.2rem'
-      }
-    }
+  const generateStars = () => {
+    return Array.from({ length: 75 }).map((_, i) => {
+      const style = {
+        top: `${Math.random() * 100}%`,
+        left: `${Math.random() * 100}%`,
+        width: `${Math.floor(Math.random() * 3 + 2)}px`,
+        height: `${Math.floor(Math.random() * 3 + 2)}px`,
+        animationDelay: `${Math.random() * 2}s`
+      };
+      return <div key={i} className="star" style={style} />;
+    });
   };
 
+  
   const settings = {
     infinite: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    nextArrow: <CustomNextArrow />,
-    prevArrow: <CustomPrevArrow />,
-    centerMode: true,
-    centerPadding: '0',
+    centerMode: false,
+    centerPadding: "0px",
+    nextArrow: <CustomArrow isNext={true} />,
+    prevArrow: <CustomArrow isNext={false} />,
   };
-
-  const logopetit = require('../../assets/img/logopetit.png');
 
   const carouselData = [
     {
@@ -200,33 +65,35 @@ const ProjectsPage = () => {
       title: "TrackDash",
       description:
         "This project is a web app designed to help and assist trainers and teachers with a concrete demonstration of what a phishing page can do.",
-      image: "https://flatirons.com/static/0a79ca63e3ace4bfd802a70a2d7427ae/d7e39/What-is-Drupal-An-Overview-in-2025.webp",
+      image:
+        "https://flatirons.com/static/0a79ca63e3ace4bfd802a70a2d7427ae/d7e39/What-is-Drupal-An-Overview-in-2025.webp",
     },
     {
       id: 2,
       title: "Projet la clef d'or",
-      description: "This project is one of my most finished projects. It's an app that simplifies the work for a concierge, centralizing restaurant and hotel reservations for clients.",
-      image: logopetit,
+      description:
+        "This project is one of my most finished projects. It's an app that simplifies the work for a concierge, centralizing restaurant and hotel reservations for clients.",
+      image: require("../../assets/img/logopetit.png"),
     },
     {
       id: 3,
       title: "This portfolio!",
-      description: "Obviously this portfolio, it's not my entire talent, but it's a small part of it.",
+      description:
+        "Obviously this portfolio, it's not my entire talent, but it's a small part of it.",
       image: "https://blog.wildix.com/wp-content/uploads/2020/06/react-logo.jpg",
     },
     {
       id: 4,
       title: "Many more",
       description: (
-        <p style={{ textAlign: 'center', fontFamily: 'roboto', fontSize: '1rem' }}>
-          I invite you to check out my GitHub to see more of my projects. Many more to come.{' '}
+        <p>
+          Check out my GitHub for more projects:{" "}
           <a
             href="https://github.com/VVaps"
             target="_blank"
             rel="noopener noreferrer"
-            style={{ textDecoration: 'underline', color: 'lightblue' }}
           >
-            Click here
+            VVaps
           </a>
         </p>
       ),
@@ -236,50 +103,35 @@ const ProjectsPage = () => {
 
   return (
     <div id="pg">
-      <div className="stars">
-        {Array.from({ length: 75 }).map((_, i) => (
-          <div key={i} className="star"></div>
-        ))}
-      </div>
-      <h1 style={styles.heading}>Projects</h1>
-      <div className="relative mx-auto" style={{
-        width: "60%",
-        position: "relative",
-        '@media (max-width: 768px)': {
-          width: "80%"
-        },
-        '@media (max-width: 480px)': {
-          width: "90%"
-        }
-      }}>
-        <p style={styles.subheading}>Here are some of my projects. Click on the images to learn more.</p>
+      <div className="stars">{generateStars()}</div>
+      <h1 className="page-heading">Projects</h1>
+      <p className="subheading">
+          Here are some of my projects. Click an image to flip.
+        </p>
+      <div className="carousel-wrapper">
         <Slider {...settings}>
           {carouselData.map((item) => (
-            <div key={item.id}>  {/* Slick slide wrapper */}
-              <h2 style={styles.slideTitle}>{item.title}</h2>
-              {/* Fixed-size slide container (600×400) */}
-              <div style={{ width: 600, height: 400, margin: '0 auto', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <div key={item.id}>
+              <h2 className="slide-title">{item.title}</h2>
+              <div className="slide-container">
                 <FlipCard
                   front={
                     <img
                       src={item.image}
                       alt={item.title}
-                      style={{ width: '100%', height: 'auto', maxHeight: '100%', objectFit: 'contain' }}
+                      className="slide-image"
                     />
                   }
-                  back={
-                    <p style={{ textAlign: 'center', fontFamily: 'roboto', fontSize: '1rem' }}>
-                      {item.description}
-                    </p>
-                  }
+                  back={<div className="slide-desc">{item.description}</div>}
                 />
               </div>
             </div>
           ))}
         </Slider>
+        <p className="mobile-scroll-hint">
+          Swipe ← → to scroll through projects
+        </p>
       </div>
     </div>
   );
-};
-
-export default ProjectsPage;
+}

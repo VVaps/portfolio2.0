@@ -67,14 +67,26 @@ const SideBar = () => {
   const buttonStyles = useMemo(() => ({
     position: 'fixed',
     top: '50%',
-    left: isOpen ? (isMobile ? 'calc(100% - 40px)' : 240) : 20,
+    left: isOpen
+      ? (isMobile ? 'calc(100% - 40px)' : 240)
+      : 20,
     transform: 'translateY(-50%)',
     zIndex: 4000,
     bgcolor: '#121212',
     color: 'orange',
     border: '1px solid orange',
-    transition: 'left 0.3s ease',
-    '&:hover': { bgcolor: 'orange', color: '#121212' },
+
+    // ↓ make it semi-transparent when closed:
+    opacity: isOpen ? 1 : 0.3,
+    transition: 'left 0.3s ease, opacity 0.8s ease',
+
+    // ↑ on hover, always fully visible:
+    '&:hover': {
+      opacity: 1,
+      bgcolor: 'orange',
+      color: '#121212',
+    },
+
     ...(isMobile && {
       padding: '12px',
       left: isOpen ? 'calc(100% - 48px)' : '16px'

@@ -3,7 +3,6 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    padding: 2rem;
     background-color: #121212;
     font-family: 'Roboto', sans-serif;
     color: orange;
@@ -63,12 +62,10 @@
 }
 
 @media (max-width: 768px) {
-    #pgs {
-        padding: 1rem;
-    }
     
     #contact-container {
         padding: 1.5rem;
+        width: 75%;
     }
     
     #contact-icons a {
